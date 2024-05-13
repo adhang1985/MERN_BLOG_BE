@@ -3,6 +3,8 @@ const cors = require('cors');
 require('dotenv').config();
 const Connection = require('./config/db');
 
+const userRouter = require('./routes/userRoute');
+
 
 const app = express();
 
@@ -14,6 +16,8 @@ app.use(express.urlencoded({extended:true}));
 app.get('/',(req,res) => {
     res.send('Welcome to server');
 });
+
+app.use('/api/user',userRouter);
 
 Connection();
 
