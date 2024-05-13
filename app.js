@@ -4,6 +4,7 @@ require('dotenv').config();
 const Connection = require('./config/db');
 
 const userRouter = require('./routes/userRoute');
+const blogRouter = require('./routes/blogRoute');
 
 
 const app = express();
@@ -17,7 +18,8 @@ app.get('/',(req,res) => {
     res.send('Welcome to server');
 });
 
-app.use('/api/user',userRouter);
+app.use('/api/v1/user',userRouter);
+app.use('/api/v1/blog',blogRouter); 
 
 Connection();
 
