@@ -73,9 +73,10 @@ const createBlog = async(req,res) => {
         }
         
         const newBlog = new blogModel({title,description,image,user:existingUser});
+        await newBlog.save();
         existingUser.blogs.push(newBlog);
         await existingUser.save();
-        await newBlog.save();
+        
         return res.status(201).send({
             success:true,
             message:"Blog created successfully",
@@ -115,8 +116,8 @@ const updateBlog = async(req,res) => {
 // delete blog
 const deleteBlog = async(req,res) => {
     try {
-        const {id} = req.body;
-        const blog = await blogModel.findOneAndDelete(id).populate("user");
+        const {id} = req.params;
+        const blog = await blogModel.findByIdAndDelete(id).populate("user");
         await blog.user.blogs.pull(blog);
         await blog.user.save();
         return res.status(200).send({
