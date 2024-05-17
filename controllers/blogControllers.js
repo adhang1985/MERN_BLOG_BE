@@ -72,7 +72,7 @@ const createBlog = async(req,res) => {
             })
         }
         
-        const newBlog = new blogModel({title,description,image,user:existingUser});
+        const newBlog = new blogModel({title,description,image,user:userId});
         await newBlog.save();
         existingUser.blogs.push(newBlog);
         await existingUser.save();
